@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, HashRouter } from "react-router-dom";
 import { themeSettings } from "theme";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
@@ -30,12 +30,12 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (
     <div className="app">
-      <BrowserRouter>
+      <HashRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/#/dashboard" replace />} />
+              <Route path="/"  element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/area" element={<Area />} />
               <Route path="/tree" element={<Tree />} />
@@ -46,11 +46,10 @@ function App() {
               <Route path="/breakdown" element={<Breakdown />} />
               <Route path="/gardener" element={<Gardener />} />
               <Route path="/schedule" element={<Schedule />} />
-              <Route path="*" element={<Dashboard />} />
             </Route>
           </Routes>
         </ThemeProvider>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }
