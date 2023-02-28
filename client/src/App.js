@@ -33,7 +33,7 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Routes>
+          {/* <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -46,18 +46,8 @@ function App() {
               <Route path="/breakdown" element={<Breakdown />} />
               <Route path="/gardener" element={<Gardener />} />
               <Route path="/schedule" element={<Schedule />} />
-              { /*
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/geography" element={<Geography />} />
-              <Route path="/overview" element={<Overview />} />
-              <Route path="/daily" element={<Daily />} />
-              <Route path="/monthly" element={<Monthly />} />
-              
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/performance" element={<Performance />} /> */}
             </Route>
-          </Routes>
+          </Routes> */}
         </ThemeProvider>
       </BrowserRouter>
     </div>
