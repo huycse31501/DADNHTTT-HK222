@@ -33,7 +33,7 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          {/* <Routes>
+          <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
@@ -47,7 +47,7 @@ function App() {
               <Route path="/gardener" element={<Gardener />} />
               <Route path="/schedule" element={<Schedule />} />
             </Route>
-          </Routes> */}
+          </Routes>
         </ThemeProvider>
       </BrowserRouter>
     </div>
