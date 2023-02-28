@@ -181,7 +181,7 @@ const Dashboard = () => {
               >
                 <Typography
                 p="0 0.6rem"
-                fontSize="rem"
+                fontSize="1rem"
                 sx={{
                     color: theme.palette.secondary[100],
                     ml: '80px',
