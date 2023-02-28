@@ -7,16 +7,16 @@ export const api = createApi({
     tagTypes: ["User", "Area", "Tree", "Watering", "Stats", "Gardener", "Dashboard"],
     endpoints: (build) => ({
         getUser: build.query({
-            query: (id) => `/https://dadn-hapa-222.onrender.com/general/user/${id}`,
+            query: (id) => `general/user/${id}`,
             providesTags: ["User"],
         }),
         getArea: build.query({
-            query: () => `/https://dadn-hapa-222.onrender.com/client/areas`,
+            query: () => `client/areas`,
             providesTags: ["Area"],
         }),
         getTree: build.query({
             query: ({ search }) => ({
-                url: "/https://dadn-hapa-222.onrender.com/client/trees",
+                url: "client/trees",
                 method: "GET",
                 params: { search },
               }),
@@ -24,7 +24,7 @@ export const api = createApi({
         }),
         getWatering: build.query({
             query: ({ search }) => ({
-                url: "/https://dadn-hapa-222.onrender.com/client/waterings",
+                url: "client/waterings",
                 method: "GET",
                 params: { search },
               }),
@@ -36,14 +36,14 @@ export const api = createApi({
         }),
         getGardener: build.query({
             query: ({ search }) => ({
-                url: "/https://dadn-hapa-222.onrender.com/client/gardeners",
+                url: "client/gardeners",
                 method: "GET",
                 params: { search },
               }),
             providesTags: ["Gardener"],
         }),
         getDashboard: build.query({
-            query: () => `/https://dadn-hapa-222.onrender.com/general/dashboard`,
+            query: () => `general/dashboard`,
             providesTags: ["Dashboard"],
         }),
     }),
