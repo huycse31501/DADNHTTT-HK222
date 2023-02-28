@@ -184,7 +184,7 @@ const Dashboard = () => {
                 fontSize="rem"
                 sx={{
                     color: theme.palette.secondary[100],
-                    ml: '110px',
+                    ml: '80px',
                 }}
                 >
                 Thống kê số cây trong khuôn viên
