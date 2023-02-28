@@ -164,7 +164,7 @@ const Dashboard = () => {
               color: `${theme.palette.secondary[200]} !important`,
             },
           }}
-              >
+        >
           <DataGrid
             loading={isLoading || !data}
             getRowId={(row) => row.wid}
@@ -176,7 +176,7 @@ const Dashboard = () => {
           gridColumn="span 4"
           gridRow="span 3"
           backgroundColor={theme.palette.background.alt}
-          p="1rem"
+          p="1.5rem"
           borderRadius="0.55rem"
               >
                 <Typography
@@ -184,7 +184,7 @@ const Dashboard = () => {
                 fontSize="rem"
                 sx={{
                     color: theme.palette.secondary[100],
-                    ml: '80px',
+                    ml: '110px',
                 }}
                 >
                 Thống kê số cây trong khuôn viên

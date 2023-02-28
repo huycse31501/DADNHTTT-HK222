@@ -81,7 +81,7 @@ const navItems = [
     },
     {
       text: "Schedule",
-      icon: <CalendarMonthIcon />,
+      icon: <CalendarMonthIcon/>,
     },
   ];
   

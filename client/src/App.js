@@ -35,7 +35,7 @@ function App() {
           <CssBaseline />
           <Routes>
             <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/" element={<Navigate to="/#/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/area" element={<Area />} />
               <Route path="/tree" element={<Tree />} />
@@ -46,6 +46,7 @@ function App() {
               <Route path="/breakdown" element={<Breakdown />} />
               <Route path="/gardener" element={<Gardener />} />
               <Route path="/schedule" element={<Schedule />} />
+              <Route path="*" element={<Dashboard />} />
             </Route>
           </Routes>
         </ThemeProvider>
