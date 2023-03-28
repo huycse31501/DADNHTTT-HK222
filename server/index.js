@@ -9,6 +9,7 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import statsRoutes from "./routes/stats.js";
+import fetch from 'node-fetch';
 
 //import
 import User from "./models/User.js";
