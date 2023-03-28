@@ -57,3 +57,15 @@ export const getGardener = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const getAvg = async (req, res) => {
+  try {
+    const avg = await Tree.find( { tid: "500001" }, { humidity: 1, temperature: 1, light: 1 } )
+    res.status(200).json({
+      avg,
+    });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+

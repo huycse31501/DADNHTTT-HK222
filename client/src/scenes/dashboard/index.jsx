@@ -23,18 +23,20 @@ import InvertColorsIcon from '@mui/icons-material/InvertColors';
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
+  const { data, isLoading } = useGetDashboardQuery();
   const [dashboardData, setDashboardData] = useState(null);
 
   const fetchDashboardData = async () => {
-    const result = await fetch('https://dadn-hapa-222.onrender.com/general/dashboard')
-    .then(response => response.json())
-    .then(data => setDashboardData(data));
+    // const result = await fetch('https://dadn-hapa-222.onrender.com/client/avg')
+    const result = await fetch('http://localhost:5001/client/avg')
+      .then(response => response.json())
+      .then(data => setDashboardData(data))
   };
 
   useEffect(() => {
     fetchDashboardData();
   }, []);
-  setInterval(fetchDashboardData, 3000)
+  setInterval(fetchDashboardData, 5000);
   const columns = [
     {
       field: "wid",
@@ -94,7 +96,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="Nhiệt độ trung bình"
-          value={String(dashboardData && dashboardData?.avgtemp[0]?.avg_val.toFixed(2)) + " C"}
+          value={String(dashboardData && dashboardData?.avg[0]?.temperature.toFixed(2)) + " C"}
           increase="+14%"
           description="So với hôm qua"
           icon={
@@ -105,7 +107,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Độ ẩm"
-          value={String(dashboardData && dashboardData?.avghumid[0]?.avg_val.toFixed(2)) + " %"}
+          value={String(dashboardData && dashboardData?.avg[0]?.humidity.toFixed(2)) + " %"}
           increase="-10%"
           description="So với hôm qua"
           icon={
@@ -125,7 +127,7 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Ánh sáng"
-          value={String(dashboardData && dashboardData?.avglight[0]?.avg_val.toFixed(0)) + " Lux"}
+          value={String(dashboardData && dashboardData?.avg[0]?.light.toFixed(0)) + " Lux"}
           increase="+5%"
           description="So với hôm qua"
           icon={
@@ -177,9 +179,9 @@ const Dashboard = () => {
           }}
         >
           <DataGrid
-            loading={!dashboardData}
+            loading={isLoading || !data}
             getRowId={(row) => row.wid}
-            rows={(dashboardData && dashboardData?.waterings) || []}
+            rows={(data && data?.waterings) || []}
             columns={columns}
           />
         </Box>
