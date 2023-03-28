@@ -1,8 +1,4 @@
 
-import {
-    useTheme,
-} from "@mui/material";
-import { useState } from "react";
 import { setSwitchState } from "state/areaSlice";
 import * as React from 'react';
 import dayjs from 'dayjs';
@@ -38,8 +34,7 @@ const Schedule = (aid) => {
     const handleChange = (newValue) => {
       setValue(newValue);
     };
-    const theme = useTheme();
-    const [isExpanded, setIsExpanded] = useState(false);
+
     const dispatch = useDispatch();
     const switchValue = useSelector((state) => state.area.switches[aid]) || false;
 

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useEffect, useState } from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import {
@@ -14,7 +14,7 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
-import { useGetDashboardQuery } from "state/api";
+import { useGetDashboardQuery} from "state/api";
 import StatBox from "components/StatBox";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import WaterIcon from '@mui/icons-material/Water';
@@ -23,7 +23,18 @@ import InvertColorsIcon from '@mui/icons-material/InvertColors';
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardQuery();
+  const [dashboardData, setDashboardData] = useState(null);
+
+  const fetchDashboardData = async () => {
+    const result = await fetch('http://localhost:5001/general/dashboard')
+    .then(response => response.json())
+    .then(data => setDashboardData(data));
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+  setInterval(fetchDashboardData, 3000)
   const columns = [
     {
       field: "wid",
@@ -83,7 +94,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="Nhiệt độ trung bình"
-          value={"33 C"}
+          value={String(dashboardData && dashboardData?.avgtemp[0]?.avg_val) + " C"}
           increase="+14%"
           description="So với hôm qua"
           icon={
@@ -94,7 +105,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Độ ẩm"
-          value={"54%"}
+          value={String(dashboardData && dashboardData?.avghumid[0]?.avg_val) + "%"}
           increase="-10%"
           description="So với hôm qua"
           icon={
@@ -114,7 +125,7 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Ánh sáng"
-          value={"43000 Lux"}
+          value={String(dashboardData && dashboardData?.avglight[0]?.avg_val) + " Lux"}
           increase="+5%"
           description="So với hôm qua"
           icon={
@@ -166,9 +177,9 @@ const Dashboard = () => {
           }}
         >
           <DataGrid
-            loading={isLoading || !data}
+            loading={!dashboardData}
             getRowId={(row) => row.wid}
-            rows={(data && data.waterings) || []}
+            rows={(dashboardData && dashboardData?.waterings) || []}
             columns={columns}
           />
         </Box>

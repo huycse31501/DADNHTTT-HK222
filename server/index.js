@@ -45,6 +45,28 @@ mongoose
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    const updaterealtimehumid = async () => {
+      const result = await fetch('https://io.adafruit.com/api/v2/vananh2110211/feeds/bbc-humi/data?limit=1&fbclid=IwAR3WniSZGbLZd17s-iWReI85XJA5PLYnhzDHnjOTICjJSia7llxHfhM-1yA')
+      .then(response => response.json())
+        .then(data => data[0]?.value)
+        .then(data => Tree.updateOne({ tid: "500001" }, { $set: {humidity: data} }));
+    };
+    const updaterealtimetemp = async () => {
+      const result = await fetch('https://io.adafruit.com/api/v2/vananh2110211/feeds/bbc-temp/data?limit=1')
+      .then(response => response.json())
+        .then(data => data[0]?.value)
+        .then(data => Tree.updateOne({ tid: "500001" }, { $set: {temperature: data} }));
+    };
+    const updaterealtimelight = async () => {
+      const result = await fetch('https://io.adafruit.com/api/v2/vananh2110211/feeds/bbc-led/data?limit=1')
+      .then(response => response.json())
+        .then(data => data[0]?.value)
+        .then(data => Tree.updateOne({ tid: "500001" }, { $set: {light: data} }));
+    };
+    setInterval(updaterealtimehumid, 3000)
+    setInterval(updaterealtimetemp, 3000)
+    setInterval(updaterealtimelight, 3000)
+
     /* Add Data One Time */
     // User.insertMany(dataUser);
     // Area.insertMany(dataArea);
@@ -53,3 +75,4 @@ mongoose
     // OverallStat.insertMany(dataOverallStat);
   })
   .catch((error) => console.log(`${error} did not connect`));
+

@@ -1,6 +1,7 @@
 import User from "../models/User.js"
 import OverallStat from "../models/OverallStat.js";
 import Watering from "../models/Watering.js";
+import Tree from "../models/Tree.js"
 
 export const getUser = async (req, res) => {
     try {
@@ -41,7 +42,9 @@ export const getDashboardStats = async (req, res) => {
     const todayStats = overallStat[0].dailyData.find(({ date }) => {
       return date === "2021-01-02";
     });
-
+    const avghumid = await Tree.aggregate([{ $group: { _id: null, avg_val: { $avg: "$humidity" } } }]);
+    const avgtemp = await Tree.aggregate([{ $group: { _id: null, avg_val: { $avg: "$temperature" } } }]);
+    const avglight = await Tree.aggregate([{ $group: { _id: null, avg_val: { $avg: "$light" } } }]);
     res.status(200).json({
       totaltree,
       yearlywateringtime,
@@ -50,8 +53,12 @@ export const getDashboardStats = async (req, res) => {
       thisMonthStats,
       todayStats,
       waterings,
+      avghumid,
+      avgtemp,
+      avglight,
     });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
+

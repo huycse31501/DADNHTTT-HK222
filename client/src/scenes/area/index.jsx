@@ -41,8 +41,7 @@ const AreaInfo = ({
   numberoftree,
   posx,
   posy,
-  monthlyData,
-  dailyData
+  monthlyData
 }) => {
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);

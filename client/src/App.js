@@ -2,7 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter, Navigate, Route, Routes, HashRouter } from "react-router-dom";
+import {Route, Routes, HashRouter } from "react-router-dom";
 import { themeSettings } from "theme";
 import Dashboard from "scenes/dashboard";
 import Layout from "scenes/layout";
@@ -53,5 +53,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
