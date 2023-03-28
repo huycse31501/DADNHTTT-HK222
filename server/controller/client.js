@@ -60,7 +60,19 @@ export const getGardener = async (req, res) => {
 
 export const getAvg = async (req, res) => {
   try {
-    const avg = await Tree.find( { tid: "500001" }, { humidity: 1, temperature: 1, light: 1 } )
+    const avg = await Tree.aggregate(
+      [
+        {
+          $group:
+            {
+              _id: null,
+              humidity: {$avg: "$humidity" },
+              temperature: { $avg: "$temperature" },
+              light: {$avg: "$light"}
+            }
+        }
+      ]
+   )
     res.status(200).json({
       avg,
     });

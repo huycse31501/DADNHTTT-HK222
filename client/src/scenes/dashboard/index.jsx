@@ -27,8 +27,8 @@ const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState(null);
 
   const fetchDashboardData = async () => {
-    // const result = await fetch('https://dadn-hapa-222.onrender.com/client/avg')
     const result = await fetch('https://dadn-hapa-222.onrender.com/client/avg')
+    // const result = await fetch('http://localhost:5001/client/avg')
       .then(response => response.json())
       .then(data => setDashboardData(data))
   };
