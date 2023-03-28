@@ -67,7 +67,7 @@ mongoose
     setInterval(updaterealtimehumid, 3000)
     setInterval(updaterealtimetemp, 3000)
     setInterval(updaterealtimelight, 3000)
-
+    
     /* Add Data One Time */
     // User.insertMany(dataUser);
     // Area.insertMany(dataArea);
