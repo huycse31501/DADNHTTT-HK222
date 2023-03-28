@@ -36,7 +36,6 @@ app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/stats", statsRoutes);
-app.disable('etag');
 /* MONGOOSE SETUP */
 mongoose.set('strictQuery', true);
 const PORT = process.env.PORT || 9000;

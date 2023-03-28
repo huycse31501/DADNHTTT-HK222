@@ -19,9 +19,6 @@ export const getTree = async (req, res) => {
           { tid: { $regex: new RegExp(search, "i") } },
           { type: { $regex: new RegExp(search, "i") } },
           { areabelong: { $regex: new RegExp(search, "i") } },
-          { humidity: { $regex: new RegExp(search, "i") } },
-          { light: { $regex: new RegExp(search, "i") } },
-          { temperature: { $regex: new RegExp(search, "i") } },
         ],
       })
       res.status(200).json(tree);
