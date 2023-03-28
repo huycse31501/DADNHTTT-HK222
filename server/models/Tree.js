@@ -6,9 +6,9 @@ const Treeschema = new mongoose.Schema(
         type: String,
         areabelong: String,
         age: Number,
-        humidity: Number,
-        light: Number,
-        temperature: Number,
+        humidity: String,
+        light: String,
+        temperature: String,
     }, {timestamps:true}
 );
 
