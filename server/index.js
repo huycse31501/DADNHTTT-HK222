@@ -10,7 +10,7 @@ import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import statsRoutes from "./routes/stats.js";
 import fetch from 'node-fetch';
-
+import net from "net"
 //import
 import User from "./models/User.js";
 import Watering from "./models/Watering.js";
@@ -67,7 +67,6 @@ mongoose
     setInterval(updaterealtimehumid, 3000)
     setInterval(updaterealtimetemp, 3000)
     setInterval(updaterealtimelight, 3000)
-    
     /* Add Data One Time */
     // User.insertMany(dataUser);
     // Area.insertMany(dataArea);
@@ -76,4 +75,3 @@ mongoose
     // OverallStat.insertMany(dataOverallStat);
   })
   .catch((error) => console.log(`${error} did not connect`));
-

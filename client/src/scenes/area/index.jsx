@@ -19,7 +19,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { pink } from '@mui/material/colors';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import { io } from "socket.io-client";
 
 const PinkSwitch = styled(Switch)(({ theme }) => ({
   '& .MuiSwitch-switchBase.Mui-checked': {
@@ -47,10 +47,30 @@ const AreaInfo = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
   const switchValue = useSelector((state) => state.area.switches[aid]) || false;
-
   const handleSwitchChange = (event) => {
     const { checked } = event.target;
     dispatch(setSwitchState({ id: aid, value: checked }));
+    const { io } = require("socket.io-client");
+    const socket = io("http://localhost:6556/", { 
+      cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
+      }
+    });
+        socket.on('connect', () => {
+      console.log(`Connected to server with id ${socket.id}`);
+      socket.emit('Hello', event.target.checked);
+    });
+    
+    socket.on('Hello', (data) => {
+      console.log(`Received from server: ${data}`);
+    });
+    
+    socket.on('error', (error) => {
+      console.log(`Error: ${error.message}`);
+    });
+    
+    // console.log('curl -F \'value=42\' -H \"X-AIO-Key: aio_wtkb37j5NzWI9lD2akaSKdaZiew1" https://io.adafruit.com/api/v2/vananh2110211/feeds/bbc-pump/data')
   };
   return (
     <Card
