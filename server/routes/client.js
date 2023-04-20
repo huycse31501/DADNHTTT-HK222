@@ -7,4 +7,5 @@ router.get("/trees", getTree)
 router.get("/waterings", getWatering)
 router.get("/gardeners", getGardener)
 router.get("/avg", getAvg)
+
 export default router;

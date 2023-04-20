@@ -25,6 +25,10 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 
 const PinkSwitch = styled(Switch)(({ theme }) => ({
@@ -100,7 +104,8 @@ const Schedule = (aid) => {
     const dispatch = useDispatch();
     const switchValue = useSelector((state) => state.area.switches[aid]) || false;
     const [open, setOpen] = React.useState(false);
-
+    const [area, setArea] = React.useState('All');
+    const [timeinterval, setTimeInterval] = React.useState("0");
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -113,7 +118,9 @@ const Schedule = (aid) => {
       // if (event.target.checked == false) {
       //   }
   };
-
+  const handleArea = (event) => {
+    setArea(event.target.value);
+  };
   const [temp, setTemp] = useState('');
   const [humid, setHumid] = useState('');
   const [light, setLight] = useState('');
@@ -155,6 +162,14 @@ const Schedule = (aid) => {
     socket.on('whereistimeend', () => {
       console.log(`Da gui thoi gian ket thuc tuoi: ${String(valueend?.$d).split(' ')[4]}`);
       socket.emit('hereistimeend', String(valueend?.$d).split(' ')[4])
+    });
+    socket.on('whereisarea', () => {
+      console.log(`Da gui khu vuc can tuoi: ${area}`);
+      socket.emit('hereisarea', area)
+    });
+    socket.on('whereistimeinterval', () => {
+      console.log(`Da gui thoi gian tuoi tung lan (phut): ${timeinterval}`);
+      socket.emit('hereistimeinterval', timeinterval)
     });
     socket.on('all', (data) => {
       console.log(`${data}`);
@@ -207,6 +222,33 @@ const Schedule = (aid) => {
                     inputProps={{ 'aria-label': 'controlled' }} />} label="Bật/Tắt Tưới Nước Thông Minh"
                 />
         </FormGroup>
+        <FormControl sx={{
+              width: "150px",
+              marginTop: "30px", marginLeft: "300px", marginRight: "300px"
+            }
+            }
+            gap = "1rem"
+            noValidate
+            autoComplete="off">
+            <InputLabel id="demo-select-small-label">Area</InputLabel>
+            <Select
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={area}
+              label="Age"
+              onChange={handleArea}
+            >
+              <MenuItem value="All">
+                <em>All</em>
+              </MenuItem>
+              <MenuItem value={"Area 1"}>Area 1</MenuItem>
+              <MenuItem value={"Area 2"}>Area 2</MenuItem>
+              <MenuItem value={"Area 3"}>Area 3</MenuItem>
+              <MenuItem value={"Area 4"}>Area 4</MenuItem>
+              <MenuItem value={"Area 5"}>Area 5</MenuItem>
+              <MenuItem value={"Area 6"}>Area 6</MenuItem>
+            </Select>
+      </FormControl>
           <Box 
             component="form"
             sx={{
@@ -245,7 +287,6 @@ const Schedule = (aid) => {
           >
             <div>
             <TextField
-                
                 id="boxhumid"
                 label="Độ ẩm kích hoạt (%)"
                 multiline
@@ -269,12 +310,34 @@ const Schedule = (aid) => {
           >
             <div>
             <TextField
-                
                 id="boxlight"
-                label="Ánh sáng kích hoạt (LUX)"
+                label="Ánh sáng kích hoạt (%)"
                 multiline
                 disabled={switchValue}
                 onChange={(event) => {setLight(event.target.value)}}
+              maxRows={4}
+              />
+            </div>
+        </Box>
+        <Box 
+            component="form"
+            sx={{
+              
+              '& .MuiTextField-root': { m: 1, width: '25ch' },
+              marginTop: "30px", marginLeft: "300px", marginRight: "300px"
+            }
+            }
+            gap = "1rem"
+            noValidate
+            autoComplete="off"
+          >
+            <div>
+            <TextField
+                id="boxlight"
+                label="Thời gian tưới từng đợt (phút)"
+                multiline
+                disabled={switchValue}
+                onChange={(event) => {setTimeInterval(event.target.value)}}
               maxRows={4}
               />
             </div>
@@ -292,6 +355,9 @@ const Schedule = (aid) => {
               Xác nhận các thông số tự động
             </BootstrapDialogTitle>
             <DialogContent dividers>
+            <Typography gutterBottom>
+                Khu vực: {area} 
+              </Typography>
               <Typography gutterBottom>
                 Nhiệt độ: {temp} C
               </Typography>
@@ -299,7 +365,10 @@ const Schedule = (aid) => {
                 Độ ẩm: {humid} %
               </Typography>
               <Typography gutterBottom>
-                Ánh sáng: {light} LUX
+                Ánh sáng: {light} %
+              </Typography>
+              <Typography gutterBottom>
+                Thời gian từng đợt tưới: {timeinterval} phút
               </Typography>
             </DialogContent>
             <DialogActions>
@@ -310,8 +379,6 @@ const Schedule = (aid) => {
           </BootstrapDialog>
         </div>
       </LocalizationProvider>
-      
-        
   )
 }
 

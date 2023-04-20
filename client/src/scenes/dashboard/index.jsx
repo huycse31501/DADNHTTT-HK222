@@ -127,7 +127,7 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Ánh sáng"
-          value={String(dashboardData && dashboardData?.avg[0]?.light.toFixed(0)) + " Lux"}
+          value={String(dashboardData && dashboardData?.avg[0]?.light.toFixed(0)) + " %"}
           increase="+5%"
           description="So với hôm qua"
           icon={

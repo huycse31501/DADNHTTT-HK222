@@ -5,7 +5,7 @@ from paho.mqtt.client import *
 import time
 
 mqtt = mqtt.Client()
-mqtt.username_pw_set(username='vananh2110211', password='aio_wtkb37j5NzWI9lD2akaSKdaZiew1')
+mqtt.username_pw_set(username='vananh2110211', password='aio_yvOA137AnyfMg0fRUHFpd1XXgwVQ')
 mqtt.connect(host='io.adafruit.com', port=1883)
 
 sio = socketio.Server(async_mode='eventlet',
@@ -61,10 +61,18 @@ def hereislight(sid, data):
 @sio.on('hereistimeend')
 def hereislight(sid, data):
     print(f"Tui nhan duoc gio ket thuc tuoi rui` {sid}: {str(data)}")
-    sio.emit('all', 'OK tui da nhan dc het, cam on client nhiu nha <3', room=sid)
+    sio.emit('whereisarea', 'back to you', room=sid)
     
+    
+@sio.on('hereisarea')
+def hereislight(sid, data):
+    print(f"Tui nhan duoc khu vuc can tuoi roi` {sid}: {str(data)}")
+    sio.emit('whereistimeinterval', 'back to you', room=sid)
 
-
+@sio.on('hereistimeinterval')
+def hereislight(sid, data):
+    print(f"Tui nhan duoc thoi gian tuoi tung lan (phut) roi` {sid}: {str(data)}")
+    sio.emit('all', 'OK tui da nhan dc het, cam on client nhiu nha <3', room=sid)
 
 @sio.on('disconnect')
 def disconnect(sid):

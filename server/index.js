@@ -59,7 +59,7 @@ mongoose
         .then(data => Tree.updateOne({ tid: "500001" }, { $set: {temperature: data} }));
     };
     const updaterealtimelight = async () => {
-      const result = await fetch('https://io.adafruit.com/api/v2/vananh2110211/feeds/bbc-led/data?limit=1')
+      const result = await fetch('https://io.adafruit.com/api/v2/vananh2110211/feeds/bbc-light/data?limit=1')
       .then(response => response.json())
         .then(data => data[0]?.value)
         .then(data => Tree.updateOne({ tid: "500001" }, { $set: {light: data} }));
